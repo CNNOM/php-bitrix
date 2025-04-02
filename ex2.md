@@ -30,3 +30,40 @@
     'readonly' => false,
   ),
 ```
+
+# [ex2-581] Кастомизация каталога товаров
+```
+			<div class="information-block-inner">
+				<h3>Заголовок</h3>
+				<? if ($arElement["PROPERTIES"]["Reviews"]["VALUE"]): ?>
+					<h1>Отзывы</h1>
+					<?
+					$reviewIds = $arElement["PROPERTIES"]["Reviews"]["VALUE"];
+					if (is_array($reviewIds)) {
+						$reviews = CIBlockElement::GetList(
+							array("SORT" => "ASC"),
+							array("ID" => $reviewIds, "ACTIVE" => "Y"),
+							false,
+							false,
+							array("ID", "IBLOCK_ID", "NAME", "PROPERTY_AUTHOR", "PROPERTY_TEXT")
+						);
+
+						while ($review = $reviews->GetNextElement()) {
+							$fields = $review->GetFields();
+							$props = $review->GetProperties();
+					?>
+							<div class="special-product">
+								<? if ($props["Reviews"]["VALUE"]): ?>
+									<div>Автор: <?= $props["Reviews"]["VALUE"] ?></div>
+								<? endif; ?>
+								<? if ($props["text"]["VALUE"]): ?>
+									<div><?= $props["text"]["VALUE"] ?></div>
+								<? endif; ?>
+							</div>
+					<?
+						}
+					}
+					?>
+				<? endif; ?>
+			</div>
+```
