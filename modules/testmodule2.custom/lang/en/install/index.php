@@ -1,0 +1,5 @@
+<?php
+$MESS["TEST_CUSTOM_MODULE_NAME"] = "Тестовый модуль";
+$MESS["TEST_CUSTOM_MODULE_DESC"] = "описание";
+$MESS["TEST_CUSTOM_PARTNER_NAME"] = "Тестовый модуль PARTNER";
+$MESS["TEST_CUSTOM_PARTNER_URI"] = "url PARTNER";
