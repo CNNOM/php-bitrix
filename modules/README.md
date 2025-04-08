@@ -25,4 +25,5 @@ $eventManager->addEventHandler('main', 'OnProlog', [
 - mycompany2.custom/functions.php - функция is404Page() сообщает находетлись вы на странице 404
 
 Пример:
+
 ![alt text](image.png)
