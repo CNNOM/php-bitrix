@@ -13,7 +13,7 @@
     ### Функционал mycompany2.custom
     - mycompany2.custom/lib/eventhandlers/main.php - функция redirectFromTestPage() редерект на главную елси чел зашёл на страницу test без роли админ
 
-ПОдключение функции (local/modules/mycompany.custom/include.php)
+Подключение функции redirectFromTestPage() (local/modules/mycompany.custom/lib/eventhandlers/main.php)
 ```
 
 $eventManager->addEventHandler('main', 'OnProlog', [
