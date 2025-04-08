@@ -10,8 +10,8 @@
 ## Структура репозитория
 - mycompany.custom - пример начального объявления модуля
 - mycompany".custom - пример начального с функционалом объявления модуля
-### Функционал
-- mycompany2.custom/lib/eventhandlers/main.php - функция redirectFromTestPage() редерект на главную елси чел зашёл на страницу test без роли админ
+    ### Функционал mycompany2.custom
+    - mycompany2.custom/lib/eventhandlers/main.php - функция redirectFromTestPage() редерект на главную елси чел зашёл на страницу test без роли админ
 
 ПОдключение функции (local/modules/mycompany.custom/include.php)
 ```
