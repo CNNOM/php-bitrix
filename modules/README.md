@@ -9,3 +9,20 @@
 
 ## Структура репозитория
 - mycompany.custom - пример начального объявления модуля
+- mycompany".custom - пример начального с функционалом объявления модуля
+### Функционал
+- mycompany2.custom/lib/eventhandlers/main.php - функция redirectFromTestPage() редерект на главную елси чел зашёл на страницу test без роли админ
+
+ПОдключение функции (local/modules/mycompany.custom/include.php)
+```
+
+$eventManager->addEventHandler('main', 'OnProlog', [
+    'MyCompany\Custom\EventHandlers\Main',
+    'redirectFromTestPage'
+]);
+
+```
+- mycompany2.custom/functions.php - функция is404Page() сообщает находетлись вы на странице 404
+
+Пример:
+![alt text](image.png)
