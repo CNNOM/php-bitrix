@@ -1,4 +1,4 @@
-<img width="626" alt="Снимок экрана 2025-04-09 в 14 23 15" src="https://github.com/user-attachments/assets/0091fd90-2726-4b01-83eb-57399c264fd8" /># [ex2-31] Подготовка
+# [ex2-31] Подготовка
 * В файле конфигурации Bitrix Framework включите вывод PHP-ошибок на страницах сайта.
 https://hmarketing.ru/blog/bitrix/vklyuchenie-vyvoda-oshibok-v-fayle-settings/ 
 
