@@ -177,6 +177,7 @@ if (strpos($metaValue, '#count#') !== false) {
 	уведомление об ошибке с текстом: «Текст анонса слишком короткий: [длина анонса]».
 	* Если в тексте анонса присутствует плейсхолдер #del# - удалить его. 
 	делать через модуль
+
 	local/modules/testmodule.custom/include.php
 	```php
 	<?php
@@ -230,5 +231,68 @@ if (strpos($metaValue, '#count#') !== false) {
 	    }
 	}
 	```
-![image](https://github.com/user-attachments/assets/1cbb9352-4ac6-48e7-ac79-ed17abf52937)
+ 
+	![image](https://github.com/user-attachments/assets/1cbb9352-4ac6-48e7-ac79-ed17abf52937)
 
+* При обновлении рецензии проверить изменение поля «Автор». Если значение изменилось, и
+какие-либо проверки (не только ваши) не отменили обновление, то сделать запись в журнал
+(CEventLog::Add) «В рецензии [ID] изменился автор с [был ID автора] на [стал ID автора]»,
+AUDIT_TYPE_ID укажите «ex2_590».
+
+local/modules/testmodule.custom/include.php
+```php
+
+ $eventManager->addEventHandler('iblock', 'OnBeforeIBlockElementUpdate', [
+    '\Local\TestModule\HelloManager',
+    'onAfterElementUpdate'
+]);
+
+
+```
+
+local/modules/testmodule.custom/lib/TestModule/HelloManager.php
+```php
+    public static function onAfterElementUpdate(&$arFields)
+    {
+	// Проверяем, что это инфоблок с рецензиями (ID=53)
+	if ($arFields['IBLOCK_ID'] != 53) {
+	    return; // Если это не наш инфоблок, выходим
+	}
+    
+	$elementId = $arFields['ID']; // ID элемента
+	$authorPropId = 113; // ID свойства "Автор"
+	
+	// Получаем новое значение автора
+	$propValues = $arFields['PROPERTY_VALUES'][$authorPropId] ?? [];
+	$newAuthorId = !empty($propValues) ? reset($propValues)['VALUE'] : null;
+    
+	// Получаем старое значение автора из свойств элемента
+	$dbRes = \CIBlockElement::GetProperty(
+	    $arFields['IBLOCK_ID'],
+	    $elementId,
+	    [],
+	    ['CODE' => 'AUTHOR']
+	);    
+
+	if ($arProp = $dbRes->Fetch()) {
+	    $oldAuthorId = $arProp['VALUE'];
+
+	    // Если автор изменился
+	    if ($oldAuthorId != $newAuthorId) {
+		// Записываем в журнал через глобальное пространство имен
+		\CEventLog::Add([
+		    'SEVERITY' => 'INFO',
+		    'AUDIT_TYPE_ID' => 'ex2_590',
+		    'MODULE_ID' => 'iblock',
+		    'ITEM_ID' => $elementId,
+		    'DESCRIPTION' => sprintf(
+			'В рецензии [%s] изменился автор с [%s] на [%s]',
+			$elementId,
+			$oldAuthorId,
+			$newAuthorId
+		    ),
+		]);
+	    }
+	}
+    }
+```
