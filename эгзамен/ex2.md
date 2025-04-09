@@ -2,6 +2,7 @@
 * В файле конфигурации Bitrix Framework включите вывод PHP-ошибок на страницах сайта.
 https://hmarketing.ru/blog/bitrix/vklyuchenie-vyvoda-oshibok-v-fayle-settings/ 
 
+local/.settings.php
 ```
   'exception_handling' =>
   array (
@@ -35,6 +36,12 @@ https://hmarketing.ru/blog/bitrix/vklyuchenie-vyvoda-oshibok-v-fayle-settings/
 ![image](https://github.com/user-attachments/assets/e43b6da6-1857-4b9b-bac3-b270ae9d2579)
 ![image](https://github.com/user-attachments/assets/6f14444a-1944-4fd5-90d1-aa2a5fed9831)
 
+* Создайте тип информационного блока, код укажите «ex2». В нем:
+	* В информационном блоке «Рецензии» добавьте два свойства:
+	![image](https://github.com/user-attachments/assets/ef045014-73a2-4473-a01d-53ef8bad9918)
+
+	* Создайте дополнительное поле для пользователей сайта
+	![image](https://github.com/user-attachments/assets/e2864683-1f92-4a6d-803a-c75b19ceab97)
 
 
 
