@@ -299,3 +299,4 @@ local/modules/testmodule.custom/lib/TestModule/HelloManager.php
 
 ![image](https://github.com/user-attachments/assets/953a6031-2355-40b9-862e-dbf89525d2ea)
 
+# [ex2-600] Работа с авторами 
