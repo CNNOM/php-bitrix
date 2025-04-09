@@ -3,7 +3,7 @@
 https://hmarketing.ru/blog/bitrix/vklyuchenie-vyvoda-oshibok-v-fayle-settings/ 
 
 local/.settings.php
-```
+```php
   'exception_handling' =>
   array (
     'value' =>
@@ -51,7 +51,7 @@ local/.settings.php
 * К описанию товара добавьте заголовок связанных с ним рецензий (на один товар может быть несколько рецензий), соответствующие условию
   
 catalog.section/test_catalog/result_modifier.php
-```
+```php
 <?php
 
 if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
@@ -88,7 +88,7 @@ while ($review = $reviews->GetNext()) {
 ```
 
 catalog.section/test_catalog/template.php
-```
+```php
 <? if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die(); ?>
 
 <div>
@@ -142,7 +142,7 @@ catalog.section/test_catalog/template.php
 если текущее значение свойства страницы ex2_meta не указано явно ни в свойствах страницы,
 ни через API, а наследуется от вышестоящего раздела.
 
-```
+```php
 $prop = "ex2_meta";
 $metaValue = $APPLICATION->GetProperty($prop);
 
@@ -171,7 +171,7 @@ if (strpos($metaValue, '#count#') !== false) {
 	* Если в тексте анонса присутствует плейсхолдер #del# - удалить его. 
 	делать через модуль
 	local/modules/testmodule.custom/include.php
-	```
+	```php
 	<?php
 	if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 	
@@ -192,7 +192,7 @@ if (strpos($metaValue, '#count#') !== false) {
 	```
 	
 	local/modules/testmodule.custom/lib/TestModule/HelloManager.php
-	```
+	```php
 	<?php
 	namespace Local\TestModule;
 	
