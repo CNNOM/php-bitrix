@@ -1,4 +1,4 @@
-# [ex2-31] Подготовка
+<img width="626" alt="Снимок экрана 2025-04-09 в 14 23 15" src="https://github.com/user-attachments/assets/0091fd90-2726-4b01-83eb-57399c264fd8" /># [ex2-31] Подготовка
 * В файле конфигурации Bitrix Framework включите вывод PHP-ошибок на страницах сайта.
 https://hmarketing.ru/blog/bitrix/vklyuchenie-vyvoda-oshibok-v-fayle-settings/ 
 
@@ -165,30 +165,63 @@ if (strpos($metaValue, '#count#') !== false) {
 
  
 # [ex2-590] Обновление элементов инфоблоков
-*
-делать через модуль
-local/modules/testmodule.custom/include.php
-```
-<?php
-if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
+* Проверять текста анонса при создании или обновлении рецензии:
+	* Если текст анонса короче 5 символов, то отменять действие и показать пользователю
+	уведомление об ошибке с текстом: «Текст анонса слишком короткий: [длина анонса]».
+	* Если в тексте анонса присутствует плейсхолдер #del# - удалить его. 
+	делать через модуль
+	local/modules/testmodule.custom/include.php
+	```
+	<?php
+	if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
+	
+	require_once __DIR__ . "/functions.php";
+	require_once __DIR__ . "/constants.php";
+	require_once __DIR__ . "/lib/TestModule/HelloManager.php";
+	
+	$eventManager = \Bitrix\Main\EventManager::getInstance();
+	
+	$eventManager->addEventHandler('iblock', 'OnBeforeIBlockElementAdd', [
+	    '\Local\TestModule\HelloManager',
+	    'onBeforeElementAddUpdate'
+	]);
+	$eventManager->addEventHandler('iblock', 'OnBeforeIBlockElementUpdate', [
+	    '\Local\TestModule\HelloManager',
+	    'onBeforeElementAddUpdate'
+	]);
+	```
+	
+	local/modules/testmodule.custom/lib/TestModule/HelloManager.php
+	```
+	<?php
+	namespace Local\TestModule;
+	
+	class HelloManager
+	{
+	    public static function onBeforeElementAddUpdate(&$arFields)
+	    {
+	        // Проверяем, что это инфоблок с рецензиями (ID=53 из вашего примера)
+	        if ($arFields['IBLOCK_ID'] != 53) {
+	            return true;
+	        }
+	
+	        // Проверка длины анонса
+	        $previewText = trim($arFields['PREVIEW_TEXT']);
+	        if (mb_strlen($previewText, 'UTF-8') < 5) {
+	            $GLOBALS['APPLICATION']->ThrowException(
+	                'Текст анонса слишком короткий: ' . mb_strlen($previewText, 'UTF-8') . ', а должен быть не меньше 5'
+	            );
+	            return false;
+	        }
+	
+	        // Удаление плейсхолдера #del#
+	        if (strpos($previewText, '#del#') !== false) {
+	            $arFields['PREVIEW_TEXT'] = str_replace('#del#', '', $previewText);
+	        }
+	
+	        return true;
+	    }
+	}
+	```
+![image](https://github.com/user-attachments/assets/1cbb9352-4ac6-48e7-ac79-ed17abf52937)
 
-require_once __DIR__ . "/functions.php";
-require_once __DIR__ . "/constants.php";
-
-\Bitrix\Main\Loader::registerAutoLoadClasses(null, [
-    '\Local\TestModule\HelloManager' => '/local/modules/testmodule.custom/lib/TestModule/HelloManager.php',
-]);
-
-
-
-$eventManager = \Bitrix\Main\EventManager::getInstance();
-
-$eventManager->addEventHandler('iblock', 'OnBeforeIBlockElementAdd', [
-    '\Local\TestModule\HelloManager',
-    'onBeforeElementAddUpdate'
-]);
-$eventManager->addEventHandler('iblock', 'OnBeforeIBlockElementUpdate', [
-    '\Local\TestModule\HelloManager',
-    'onBeforeElementAddUpdate'
-]);
-```
