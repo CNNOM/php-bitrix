@@ -1,21 +1,15 @@
 # [ex2-31] Подготовка
-* Добавьте в шаблон сайте тег <meta>
-![image](https://github.com/user-attachments/assets/078adcaa-fcf8-46c8-a2a0-f863907c9838)
-![image](https://github.com/user-attachments/assets/256bd8ef-cf32-4004-8400-0fa4d902f747)
-![image](https://github.com/user-attachments/assets/e43b6da6-1857-4b9b-bac3-b270ae9d2579)
-![image](https://github.com/user-attachments/assets/6f14444a-1944-4fd5-90d1-aa2a5fed9831)
-
-
 * В файле конфигурации Bitrix Framework включите вывод PHP-ошибок на страницах сайта.
+https://hmarketing.ru/blog/bitrix/vklyuchenie-vyvoda-oshibok-v-fayle-settings/ 
 
 ```
   'exception_handling' =>
   array (
     'value' =>
     array (
-      'debug' => true,
-      'handled_errors_types' => E_ALL,
-      'exception_errors_types' => E_ALL,
+      'debug' => true, // изменяем значение на true, если true то вывод ошибок включён
+      'handled_errors_types' => 4437,
+      'exception_errors_types' => 4437,
       'ignore_silence' => false,
       'assertion_throws_exception' => true,
       'assertion_error_type' => 256,
@@ -30,6 +24,21 @@
     'readonly' => false,
   ),
 ```
+
+
+* Для журнала событий установите опции:
+![image](https://github.com/user-attachments/assets/7728a7d4-ca02-49a2-8ee4-963e719a7fb9)
+
+* Добавьте в шаблон сайте тег <meta>
+![image](https://github.com/user-attachments/assets/078adcaa-fcf8-46c8-a2a0-f863907c9838)
+![image](https://github.com/user-attachments/assets/256bd8ef-cf32-4004-8400-0fa4d902f747)
+![image](https://github.com/user-attachments/assets/e43b6da6-1857-4b9b-bac3-b270ae9d2579)
+![image](https://github.com/user-attachments/assets/6f14444a-1944-4fd5-90d1-aa2a5fed9831)
+
+
+
+
+
 
 # [ex2-581] Кастомизация каталога товаров
 ```
