@@ -31,7 +31,14 @@ local/.settings.php
 ![image](https://github.com/user-attachments/assets/7728a7d4-ca02-49a2-8ee4-963e719a7fb9)
 
 * Добавьте в шаблон сайте тег <meta>
-![image](https://github.com/user-attachments/assets/078adcaa-fcf8-46c8-a2a0-f863907c9838)
+```html
+
+<head>
+    <? $prop = "ex2_meta"; ?>
+    <meta propery="specialdate"
+        name="<?= $prop ?>"
+        content="<?= $APPLICATION->ShowProperty($prop) ?>">
+```
 ![image](https://github.com/user-attachments/assets/256bd8ef-cf32-4004-8400-0fa4d902f747)
 ![image](https://github.com/user-attachments/assets/e43b6da6-1857-4b9b-bac3-b270ae9d2579)
 ![image](https://github.com/user-attachments/assets/6f14444a-1944-4fd5-90d1-aa2a5fed9831)
