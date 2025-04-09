@@ -48,7 +48,8 @@ local/.settings.php
 
 
 # [ex2-581] Кастомизация каталога товаров
-*
+* К описанию товара добавьте заголовок связанных с ним рецензий (на один товар может быть несколько рецензий), соответствующие условию
+  
 catalog.section/test_catalog/result_modifier.php
 ```
 <?php
@@ -95,15 +96,12 @@ catalog.section/test_catalog/template.php
 		.main {
 			color: red;
 		}
-
 		h3 {
 			color: green;
 		}
-
 		h4 {
 			color: blue;
 		}
-
 		.rev {
 			border: black solid 1px;
 		}
@@ -118,9 +116,7 @@ catalog.section/test_catalog/template.php
 			</p>
 			<? if ($item['REVIEWS']): ?>
 				<ul>
-
 					<? foreach ($item['REVIEWS'] as $rev): ?>
-
 						<li class="rev">
 							<h3>
 								<?= $rev["NAME"] ?>
@@ -132,8 +128,6 @@ catalog.section/test_catalog/template.php
 							<p class='main'>
 								<?= $rev["PREVIEW_TEXT"] ?>
 							</p>
-
-
 						</li>
 					<? endforeach; ?>
 				</ul>
@@ -142,3 +136,31 @@ catalog.section/test_catalog/template.php
 	<? endforeach; ?>
 </div>
 ```
+
+* Если в значении свойства страницы ex2_meta есть плейсхолдер #count#, заменить его на число
+товаров, для которых выводятся рецензии. Решение должно работать корректно, в том числе
+если текущее значение свойства страницы ex2_meta не указано явно ни в свойствах страницы,
+ни через API, а наследуется от вышестоящего раздела.
+
+```
+$prop = "ex2_meta";
+$metaValue = $APPLICATION->GetProperty($prop);
+
+if (strpos($metaValue, '#count#') !== false) {
+    $count = 0;
+    foreach ($arResult['ITEMS'] as $item) {
+        if (!empty($item['REVIEWS'])) {
+            $count++;
+        }
+    }
+
+    // Заменяем плейсхолдер на реальное количество
+    $metaValue = str_replace('#count#', $count, $metaValue);
+
+    // // Устанавливаем обновленное значение
+    $APPLICATION->SetPageProperty($prop, $metaValue);
+}
+Ï
+```
+
+ 
