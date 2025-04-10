@@ -300,3 +300,60 @@ local/modules/testmodule.custom/lib/TestModule/HelloManager.php
 ![image](https://github.com/user-attachments/assets/953a6031-2355-40b9-862e-dbf89525d2ea)
 
 # [ex2-600] Работа с авторами 
+
+
+# [ex2-190] Изменить административную часть сайта
+
+```php
+    public static function modifyAdminMenuForContentEditors(&$adminMenu, &$moduleMenu)
+    {
+        global $USER;
+
+        // Проверяем, что пользователь принадлежит группе "Контент-редакторы" (ID=5)
+        if (!$USER->IsAuthorized() || !in_array(5, $USER->GetUserGroupArray())) {
+            return;
+        }
+    
+        // 1. Проверяем, не модифицировали ли мы уже меню
+        if (isset($adminMenu['global_menu_quick_access'])) {
+            return;
+        }
+    
+        // 2. Оставляем только раздел "Контент" с его содержимым
+        $contentMenu = isset($adminMenu['global_menu_content']) 
+            ? ['global_menu_content' => $adminMenu['global_menu_content']] 
+            : [];
+    
+        // 3. Добавляем новый раздел "Быстрый доступ"
+        $adminMenu = array_merge($contentMenu, [
+            'global_menu_quick_access' => [
+                'text' => 'Быстрый доступ',
+                'title' => 'Быстрый доступ',
+                'sort' => 100,
+                'items_id' => 'global_menu_quick_access',
+                'icon' => 'iblock_menu_icon',
+                'page_icon' => 'iblock_page_icon',
+                'items' => [
+                    'quick_link1' => [
+                        'text' => 'Ссылка 1',
+                        'url' => 'https://test1',
+                        'title' => 'Перейти на тестовую страницу 1',
+                        'icon' => 'form_menu_icon',
+                        'page_icon' => 'form_page_icon',
+                        'items_id' => 'menu_quick_link1',
+                        'selected' => false // Явно указываем неактивное состояние
+                    ],
+                    'quick_link2' => [
+                        'text' => 'Ссылка 2',
+                        'url' => 'https://test2',
+                        'title' => 'Перейти на тестовую страницу 2',
+                        'icon' => 'form_menu_icon',
+                        'page_icon' => 'form_page_icon',
+                        'items_id' => 'menu_quick_link2',
+                        'selected' => false
+                    ]
+                ]
+            ]
+        ]);
+    }
+```
