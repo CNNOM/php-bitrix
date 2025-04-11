@@ -301,7 +301,59 @@ local/modules/testmodule.custom/lib/TestModule/HelloManager.php
 
 # [ex2-600] Работа с авторами 
 
+local/modules/testmodule.custom/include.php
+```php
+$eventManager->addEventHandler('main', 'OnBeforeUserUpdate', [
+    '\Local\TestModule\HelloManager',
+    'userClassChang'
+]);
+```
 
+local/modules/testmodule.custom/lib/TestModule/HelloManager.php
+```php
+    public static function userClassChang($arFields)
+    {
+        $ID_USER = $arFields["ID"];
+        $GROUP_ID = $arFields["GROUP_ID"];
+
+
+        $res = \CUser::GetUserGroupList($ID_USER);
+        $GROUP_ID_OLD = [];
+
+        while ($arGroup = $res->Fetch()) {
+            if ($arGroup["GROUP_ID"] !== '2') {
+                $GROUP_ID_OLD[] = $arGroup;
+            }
+        }
+
+        $groupIdsOld = array_column($GROUP_ID_OLD, 'GROUP_ID');
+        $groupIdsNew = array_column($GROUP_ID, 'GROUP_ID');
+
+        $result = array_diff($groupIdsOld, $groupIdsNew);
+        if (!$result) {
+            $result = array_diff($groupIdsNew, $groupIdsOld);
+        }
+
+        if ($result) {
+            foreach ($result as $idgroup) {
+                \CEventLog::Add([
+                    'DESCRIPTION' => 'Класс пользователя изменился: ' . $idgroup,
+                ]);
+            }
+            $data = [
+                'OLD_USER_CLASS' => $GROUP_ID_OLD,
+                'NEW_USER_CLASS' => $GROUP_ID,
+
+            ];
+            Event::send([
+                "EVENT_NAME" => "EX2_AUTHOR_INFO",
+                "LID" => SITE_ID,
+                "C_FIELDS" => $data
+            ]);
+            \CEvent::ExecuteEvents();
+        }
+    }
+```
 # [ex2-190] Изменить административную часть сайта
 
 ```php
