@@ -354,6 +354,41 @@ local/modules/testmodule.custom/lib/TestModule/HelloManager.php
         }
     }
 ```
+# [ex2-630] Индексация элементов
+
+
+local/modules/testmodule.custom/include.php
+```php
+$eventManager->addEventHandler('search', 'BeforeIndex', [
+    '\Local\TestModule\HelloManager',
+    'addAuthorClassToReviewTitle'
+]);
+```
+
+local/modules/testmodule.custom/lib/TestModule/HelloManager.php
+```php
+    public static function addAuthorClassToReviewTitle($arFields)
+    {
+        global $APPLICATION;
+
+        $iblockId = $arFields['PARAM2'];
+
+        if ($iblockId == '53') {
+            $arFields['ITEM_ID'] = $arFields['ITEM_ID'] . "sdsdsdsds";
+            $elementId = $arFields['ITEM_ID'];
+
+            echo '<pre>';
+            print_r($elementId);
+            echo '</pre>';
+            echo '<pre>';
+            print_r($iblockId);
+            echo '</pre>';
+        }
+
+        return $arFields;
+    }
+```
+
 # [ex2-190] Изменить административную часть сайта
 
 ```php
