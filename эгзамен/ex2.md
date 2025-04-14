@@ -150,24 +150,16 @@ catalog.section/test_catalog/template.php
 ни через API, а наследуется от вышестоящего раздела.
 
 ```php
-$prop = "ex2_meta";
-$metaValue = $APPLICATION->GetProperty($prop);
+$prop = "test";
+$meta = $APPLICATION->GetProperty($prop);
 
-if (strpos($metaValue, '#count#') !== false) {
-    $count = 0;
-    foreach ($arResult['ITEMS'] as $item) {
-        if (!empty($item['REVIEWS'])) {
-            $count++;
-        }
-    }
+if (strpos($meta, "#coun#")) {
+    $count = count($arResult["ITEMS"]);
 
-    // Заменяем плейсхолдер на реальное количество
-    $metaValue = str_replace('#count#', $count, $metaValue);
+    $metaValue = str_replace("#coun#", $count, $meta);
 
-    // // Устанавливаем обновленное значение
     $APPLICATION->SetPageProperty($prop, $metaValue);
 }
-Ï
 ```
 
  
