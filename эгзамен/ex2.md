@@ -354,6 +354,9 @@ local/modules/testmodule.custom/lib/TestModule/HelloManager.php
         }
     }
 ```
+# [ex2-620] Изменение данных при отправке почты
+
+
 # [ex2-630] Индексация элементов
 
 
