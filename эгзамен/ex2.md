@@ -35,7 +35,7 @@ local/.settings.php
 
 <head>
     <? $prop = "ex2_meta"; ?>
-    <meta propery="specialdate"
+    <meta property="specialdate"
         name="<?= $prop ?>"
         content="<?= $APPLICATION->ShowProperty($prop) ?>">
 ```
