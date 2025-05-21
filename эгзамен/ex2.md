@@ -1,3 +1,6 @@
+https://webdevprompt.com/2025/05/06/%D0%BF%D0%BE%D0%B4%D1%81%D0%BA%D0%B0%D0%B7%D0%BA%D0%B8-%D0%B4%D0%BB%D1%8F-%D1%8D%D0%BA%D0%B7%D0%B0%D0%BC%D0%B5%D0%BD%D0%B0-2-bitrix-%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%BD%D1%8B%D0%B5-%D0%B8%D0%BD%D1%81/
+
+
 # [ex2-31] Подготовка
 * В файле конфигурации Bitrix Framework включите вывод PHP-ошибок на страницах сайта.
 https://hmarketing.ru/blog/bitrix/vklyuchenie-vyvoda-oshibok-v-fayle-settings/ 
