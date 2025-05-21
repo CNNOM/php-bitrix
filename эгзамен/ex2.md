@@ -165,7 +165,11 @@ if (strpos($meta, "#coun#")) {
  
 # [ex2-590] Обновление элементов инфоблоков
 
+Инструкция по модулю:
 https://w.ntcad.ru/doc/2-standartnyj-shablon-modulya-C63CP5whOf
+
+Щаблон модуля:
+https://github.com/CNNOM/php-bitrix/tree/master/modules/dtcm.app
 
 * Проверять текста анонса при создании или обновлении рецензии:
 	* Если текст анонса короче 5 символов, то отменять действие и показать пользователю
